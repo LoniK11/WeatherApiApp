@@ -1,5 +1,8 @@
 package com.example.WeatherApp.Weather;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Main {
     double temp;
     double feels_like;
