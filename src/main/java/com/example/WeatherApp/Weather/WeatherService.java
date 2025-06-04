@@ -12,10 +12,17 @@ public class WeatherService {
 
     private final String weatherUrl = "https://api.openweathermap.org/data/2.5/weather";
 
-    public WeatherResponse getWeatherByCity(String city){
+    public WeatherInfo getWeatherByCity(String city){
         String url = this.weatherUrl + "?q=" + city + "&appid=" + this.weatherApiKey + "&units=metric";
 
         WeatherResponse response = new RestTemplate().getForObject(url,WeatherResponse.class);
-        return response;
+        WeatherInfo weatherInfo = new WeatherInfo();
+        weatherInfo.setCityName(response.getName());
+        weatherInfo.setTemperature(response.getMain().temp);
+        weatherInfo.setFeelsLike(response.getMain().feels_like);
+        weatherInfo.setHumidity(response.getMain().humidity);
+        weatherInfo.setCondition(response.getWeather().get(0).getMain());
+
+        return weatherInfo;
     }
 }
